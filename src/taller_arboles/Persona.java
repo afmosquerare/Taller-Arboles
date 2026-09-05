@@ -1,6 +1,7 @@
 package taller_arboles;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class Persona {
@@ -44,4 +45,10 @@ public class Persona {
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+    
+    public int getEdad(){
+        return Period.between(fechaNacimiento, LocalDate.now() ).getYears();
+    }
+    
+ 
 }

@@ -4,17 +4,20 @@
  */
 package taller_arboles;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author sala313
  */
 public class Taller_arboles {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ArbolGenealogico arbol = new ArbolGenealogico( new Persona( "Diego", "5", LocalDate.of(1980, 5, 1) ) );
+        System.out.println(  arbol.insertar("5", new Persona("Ana", "2", LocalDate.of(2000,12,24 ) ) ) );
+        arbol.mostrar( arbol.getRaiz() );
+        
+        
     }
     
 }

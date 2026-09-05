@@ -11,8 +11,8 @@ package taller_arboles;
 public class ArbolGenealogico {
     private Nodo raiz;
 
-    public ArbolGenealogico(Nodo raiz) {
-        this.raiz = null;
+    public ArbolGenealogico( Persona persona ) {
+        this.raiz = new Nodo( persona );
     }
     
     public void mostrar(Nodo r){
@@ -20,7 +20,7 @@ public class ArbolGenealogico {
         Nodo aux = this.raiz;
         while( aux != null){
             if( !aux.EsPadre()){
-                System.out.println(aux.getPersona().getNombre());
+                System.out.println(aux.getPersona().getNombre( ) + ", Edad: " + aux.getPersona().getEdad());
             }
             else{
                 mostrar(aux.getLigaPadre());
@@ -28,9 +28,18 @@ public class ArbolGenealogico {
             aux = aux.getLiga();
         }
     }
+
+    public Nodo getRaiz() {
+        return raiz;
+    }
+
     
     public String insertar(String cedulaPadre, Persona persona ){
-        if( this.raiz == null ) return "El arbol esta vacio";
+        /*if( this.raiz == null ){
+            this.raiz = new Nodo( persona );
+            return "Esta persona se ha convertido en la raiz del arbol";
+        }*/
+           
         Nodo padre = buscarNodo(this.raiz, cedulaPadre);
         if( padre == null ) return "La cedula ingresada no existe";
         
@@ -41,15 +50,23 @@ public class ArbolGenealogico {
             padre.setLiga( nuevoHijo );
             return "Persona insertada correctamente";
         }
+        anterior = padre;
         Nodo siguiente = padre.getLiga();
         while( siguiente != null){
             if( siguiente.getPersona().getCedula().compareTo(nuevoHijo.getPersona().getCedula() ) > 0   ){
-            
+                anterior.setLiga( nuevoHijo );
+                nuevoHijo.setLiga( siguiente );
+                return "Persona insertada correctamente";
             }
-        
+            if( siguiente.getLiga() == null ){
+                siguiente.setLiga( nuevoHijo );
+                return "Persona insertada correctamente";
+            }
+            anterior = siguiente;
             siguiente = siguiente.getLiga();
+
         }
-        
+        return "Hubo un error al insertar";
     }
     
     
